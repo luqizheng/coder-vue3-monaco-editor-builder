@@ -1,0 +1,31 @@
+{
+  "api-access": {
+    "prefix": "coderApi",
+    "body": [
+      "export default class $0 {",
+      "    constructor(host, request) {",
+      "        this.path = host + '$1:controller名称';",
+      "        this.request = request;",
+      "    }",
+      "",
+      "    save(param) {",
+      "        return this.request.post(`${this.path}/save`, param)",
+      "    }",
+      "    getById(id) {",
+      "        return this.request.get(`${this.path}/get-by-id/${id}`)",
+      "    }",
+      "    del(id) {",
+      "        return this.request.delete(`${this.path}/${id}`)",
+      "    }",
+      "    list(searcher) {",
+      "        return this.request.get(`${this.path}/list`, {params: searcher})",
+      "    }",
+      "    count(searcher) {",
+      "        return this.request.get(`${this.path}/count`,  {params: searcher})",
+      "    }",
+      "}",
+      ""
+    ],
+    "description": "axios访问.net core controller"
+  }
+}

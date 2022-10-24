@@ -1,0 +1,27 @@
+{
+	"ant-design Column 定义": {
+		"prefix": "coderTableColumn",
+		"body": [
+			"const columns = [",
+			"  {",
+			"    title: \"操作\",",
+			"    key: \"id\",",
+			"    slots: { customRender: \"action\" },",
+			"  },",
+			"  {",
+			"    title: \"名称\",",
+			"    dataIndex: \"name\",",
+			"    key: \"name\", slots: { customRender: \"name\" },",
+			"  },",
+			"  {",
+			"    title: \"内容\",",
+			"    dataIndex: \"content\",",
+			"    key: \"content\",",
+			"    slots: { customRender: \"content\" },",
+			"  },",
+			"];",
+			"export default columns"
+		],
+		"description": "ant-design Column 定义"
+	}
+}
