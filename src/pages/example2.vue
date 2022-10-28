@@ -1,5 +1,5 @@
 <template>
-    <coder-monaco-editor v-model="sourceCode" language="json" />
+    <coder-vue3-monaco-editor v-model="sourceCode" language="json" />
   </template>
   
   <script setup>

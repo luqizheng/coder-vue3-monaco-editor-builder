@@ -1,5 +1,5 @@
 # eidtor
-
+设置 editor
 ```
 import * as monaco from 'monaco-editor';
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
@@ -20,4 +20,8 @@ window.MonacoEnvironment = {
     return new editorWorker(); // 基础功能文件， 提供了所有语言通用功能 无论使用什么语言，monaco都会去加载他。
   },
 };
+```
+
+```
+  <coder-vue3-monaco-editor v-model="sourceCode" language="json" />
 ```
