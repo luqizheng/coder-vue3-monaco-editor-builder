@@ -23,5 +23,11 @@ window.MonacoEnvironment = {
 ```
 
 ```
+import coderVue3MonacoEditor from "coder-vue3-monaco-editor";
+```
+
+```
+  
   <coder-vue3-monaco-editor v-model="sourceCode" language="json" />
 ```
+
