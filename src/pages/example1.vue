@@ -6,6 +6,9 @@
       :editorOptions="options"
       :read-only="readonly"
     />
+
+    <coder-preview :dataSource="dataSource"/>
+
   </div>
 </template>
 
@@ -19,7 +22,7 @@ const onMessageTypeEdit = () => {
 };
 
 const readonly = ref(false);
-
+const dataSource = ref(null)
 const options = ref({
   readonly: true,
 });

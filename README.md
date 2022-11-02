@@ -1,19 +1,22 @@
 # 安装
 
-默认已经导入 了 es5/es6得代码提示。
+默认已经导入 了 es5/es6 得代码提示。
 
-``` npm install coder-vue3-monaco-editor ``
+``npm install coder-vue3-monaco-editor`
 
-
-``` 
-import { monacoEditor } from 'coder-vue3-monaco-editor'
 ```
-or 
+import  monacoEditor from 'coder-vue3-monaco-editor'
+export default {
+  compouents:{monacoEditor}
+}
+```
+
+or
+
 ```
 import monacoEditor from 'coder-vue3-monaco-editor'
 app.use(monacoEditor)
 ```
-
 
 ```
 <template>
@@ -30,6 +33,7 @@ const onMessageTypeEdit = () => {
 
 
 ```
+
 # mnonaco 基础设置
 
 ```
