@@ -1,4 +1,36 @@
-# eidtor
+# 安装
+
+默认已经导入 了 es5/es6得代码提示。
+
+``` npm install coder-vue3-monaco-editor ``
+
+
+``` 
+import { monacoEditor } from 'coder-vue3-monaco-editor'
+```
+or 
+```
+import monacoEditor from 'coder-vue3-monaco-editor'
+app.use(monacoEditor)
+```
+
+
+```
+<template>
+  <coder-monaco-editor v-model="sourceCode"  />
+</template>
+
+<script setup>
+import { ref, reactive } from "vue";
+const sourceCode = ref("var a=1");
+const onMessageTypeEdit = () => {
+  messageTypeId.value = 0;
+};
+</script>
+
+
+```
+# mnonaco 基础设置
 
 ```
 import * as monaco from 'monaco-editor';

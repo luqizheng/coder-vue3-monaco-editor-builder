@@ -1,7 +1,7 @@
 {
   "name": "coder-vue3-monaco-editor",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "files": [
     "dist"
   ],
@@ -30,8 +30,7 @@
     "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^3.2.6",
     "monaco-editor": "^0.34.1",
-    "vue": "^3.2.37",
-    "vue-router": "^4.1.5"
+    "vue": "^3.2.37"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
@@ -39,6 +38,7 @@
     "@vitejs/plugin-vue-jsx": "^2.0.1",
     "typescript": "^4.7.4",
     "vite": "^3.0.7",
+    "vue-router": "^4.1.5",
     "vue-tsc": "^0.39.5"
   }
 }

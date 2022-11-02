@@ -58,6 +58,10 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  readOnly:{
+    type:Boolean,
+    default:false
+  }
 });
 
 const { updateVal, createEditor, onFormatDoc } = useMonaco(props.language);
@@ -125,9 +129,16 @@ const hightLine = (line: number) => {
   );
 };
 
+watch(()=>props.readOnly,(v)=>{
+  monacoEditor.updateOptions({readOnly: v});
+})
+
+
 defineExpose({
   hightLine,
 });
+
+
 </script>
 
 <style>

@@ -15,7 +15,7 @@ export default defineConfig({
       external: [
         "vue",
         "dayjs",
-        "@aspnet/signalr",
+        "@ant-design/icons-vue",
         "ant-design-vue",
         "element-plus",
         "vue3-text-clamp",
