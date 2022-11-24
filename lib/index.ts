@@ -1,8 +1,11 @@
 export * from './types'
 import { App } from 'vue'
-import { Options } from './types'
 import editor from './editor/index.vue'
-editor.install = (app: App, option: Options) => {
+
+
+export const MonacoEditor = editor
+
+editor.install = (app: App) => {
   app.component('coder-monaco-editor', editor)
 }
 
