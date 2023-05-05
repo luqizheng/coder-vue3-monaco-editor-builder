@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import example1 from '../pages/example1.vue'
 
-import example2 from '../pages/example2.vue'
+// import example2 from '../pages/example2.vue'
 
 const routes = [
   {
@@ -9,10 +9,10 @@ const routes = [
     component: example1,
   },
 
-  {
-    path: "/example2",
-    component: example2,
-  },
+  // {
+  //   path: "/example2",
+  //   component: example2,
+  // },
 
 ];
 

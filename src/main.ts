@@ -29,9 +29,8 @@ window.MonacoEnvironment = {
 import router from './router'
 import DevelopCompents from '../lib'
 
-createApp(App).
-    use(DevelopCompents)
-   
+createApp(App)
+
     .use(Antd)
     .use(router)
     .mount("#app");
