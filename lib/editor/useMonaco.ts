@@ -14,9 +14,7 @@ monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
   allowNonTsExtensions: true
 })
 
-monaco.languages.typescript.javascriptDefaults.addExtraLib(
-  'declare var processInstance: processInstanceClass'
-)
+
 
 export default function useMonaco(language = 'javascript') {
   //let monacoEditor: monaco.editor.IStandaloneCodeEditor | null = null
@@ -45,7 +43,6 @@ export default function useMonaco(language = 'javascript') {
   }
 
   const onFormatDoc = (monacoEditor:monaco.editor.IStandaloneCodeEditor) => {
-    
     monacoEditor?.getAction('editor.action.formatDocument').run()
   }
   return {

@@ -29,7 +29,6 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^3.2.6",
-    "coder-preview-components": "^0.1.2",
     "monaco-editor": "^0.34.1",
     "vue": "^3.2.37"
   },

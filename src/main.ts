@@ -4,8 +4,6 @@ import App from "./App.vue";
 import "ant-design-vue/dist/antd.css";
 
 import Antd from "ant-design-vue";
-import coderPreview from 'coder-preview-components'
-import 'coder-preview-components/dist/style.css'
 
 import * as monaco from 'monaco-editor';
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
@@ -33,7 +31,7 @@ import DevelopCompents from '../lib'
 
 createApp(App).
     use(DevelopCompents)
-    .use(coderPreview)
+   
     .use(Antd)
     .use(router)
     .mount("#app");
