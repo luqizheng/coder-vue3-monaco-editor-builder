@@ -34,7 +34,7 @@ export class MonacoEditor {
    *
    */
   setModleEnable(enable: boolean) {
-    this.builder.setModleEnable(enable)
+    this.builder.setModleEnable(enable);
   }
 
   /**
@@ -86,5 +86,27 @@ export class MonacoEditor {
     var codeInfo = this.builder.setIndependModule(uriName, builder);
 
     this.editor.setModel(codeInfo.model);
+  }
+  /**
+   * 高亮代码行数。
+   * @param line 代码行数
+   * @returns 
+   */
+
+  hightLine(line: number) {
+    if (!this.editor) return;
+    let decorations = this.editor.getModel()?.deltaDecorations(
+      [],
+      [
+        {
+          range: new monaco.Range(line, 1, line, 1),
+          options: {
+            isWholeLine: true,
+            className: "myContentClass",
+            glyphMarginClassName: "myGlyphMarginClass",
+          },
+        },
+      ]
+    );
   }
 }

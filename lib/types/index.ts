@@ -7,7 +7,7 @@ export type SnapShot = {
   snapShot: monaco.editor.ITextSnapshot;
   lang: "";
   code: Ref<string>;
-  uri:monaco.Uri
+  uri: monaco.Uri;
 };
 export type IntellisenceEnv = {
   set(key: string, code: string): IntellisenceEnv;
