@@ -33,6 +33,7 @@ const editorGlobalRef = ref()
 const editr2Ref = ref()
 const editr1Ref = ref();
 
+const monacoBuilder = editorHelper.useBuilder(editorGlobalRef.value).forJs();
 
 import * as editorHelper from '../../lib/index'
 let editorGlobal: editorHelper.MonacoEditor | null = null
@@ -44,23 +45,23 @@ onMounted(() => {
     .setNoLib()
     .setEs5().setEs6();
 
-  editorGlobal = editorHelper.useBuilder(editorGlobalRef.value).forJs().build();
+  editorGlobal = monacoBuilder.build(editorGlobalRef.value);
 
-  editorGlobal?.sync("obal.ts", sourceCodeGlobal, "javascript");
+  editorGlobal.setGlobalCode("obal.ts", sourceCodeGlobal, true);
 
 })
 
 const onTabChange = (key: any) => {
   switch (key) {
     case "global":
-      editorGlobal?.sync("http://gg.com/1.ts", sourceCodeGlobal, "javascript");
+      editorGlobal?.setGlobalCode("http://gg.com/1.ts", sourceCodeGlobal, true);
       break;
     case "1":
 
       if (!editor1) {
         nextTick(() => {
-          editor1 = editorHelper.useBuilder(editr1Ref.value).forJs().build();
-          editor1?.sync("http://cc.com/2.ts", sourceCode1, "javascript");
+          editor1 = monacoBuilder.build(editr1Ref.value);
+          editor1?.setCode("http://cc.com/2.ts", sourceCode1);
         })
       }
 
@@ -70,8 +71,8 @@ const onTabChange = (key: any) => {
 
       if (!editor2) {
         nextTick(() => {
-          editor2 = editorHelper.useBuilder(editr2Ref.value).forJs().build();
-          editor2?.sync("file://3.ts", sourceCode2, "javascript");
+          editor2 = monacoBuilder.build(editr2Ref.value);
+          editor2?.setCode("file://3.ts", sourceCode2, "javascript");
         })
 
       }

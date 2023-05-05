@@ -58,6 +58,6 @@ export const useIntellisence = (): IntellisenceEnv => {
   return result;
 };
 
-export const useBuilder = (el: HTMLElement): MonacoBuilder => {
-  return new MonacoBuilder(el);
+export const useBuilder = (): MonacoBuilder => {
+  return new MonacoBuilder();
 };
