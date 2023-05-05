@@ -33,21 +33,21 @@ const editorGlobalRef = ref()
 const editr2Ref = ref()
 const editr1Ref = ref();
 
-const monacoBuilder = editorHelper.useBuilder(editorGlobalRef.value).forJs();
+const monacoBuilder = useBuilder();
 
-import * as editorHelper from '../../lib/index'
-let editorGlobal: editorHelper.MonacoEditor | null = null
-let editor1: editorHelper.MonacoEditor | null = null
-let editor2: editorHelper.MonacoEditor | null = null
+import { useBuilder, useIntellisence } from '../../lib/index'
+import { MonacoEditor } from '../../lib/types'
+let editorGlobal: MonacoEditor | null = null
+let editor1: MonacoEditor | null = null
+let editor2: MonacoEditor | null = null
 onMounted(() => {
-  editorHelper
-    .useIntellisence()
+  useIntellisence()
     .setNoLib()
     .setEs5().setEs6();
 
   editorGlobal = monacoBuilder.build(editorGlobalRef.value);
 
-  editorGlobal.setGlobalCode("obal.ts", sourceCodeGlobal, true);
+  editorGlobal?.setGlobalCode("obal.ts", sourceCodeGlobal, true);
 
 })
 

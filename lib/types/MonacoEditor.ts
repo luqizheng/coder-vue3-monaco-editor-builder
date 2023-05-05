@@ -1,7 +1,8 @@
 import { mode } from "crypto-js";
 import * as monaco from "monaco-editor";
 import { Ref } from "vue";
-import { CodeRelative, EditorModelInfo, MonacoBuilder } from "..";
+import { MonacoBuilder, SnapShot } from "..";
+import { EditorModelInfo } from "./EditorModelInfo";
 
 export class MonacoEditor {
   editor: monaco.editor.IStandaloneCodeEditor;
@@ -27,6 +28,18 @@ export class MonacoEditor {
       }
     });
   }
+
+  /**
+   * 暂停builder 所有的 model，避免在builder之间共享 module的提示。
+   *
+   */
+  setModleEnable(enable: boolean) {
+    this.builder.setModleEnable(enable)
+  }
+
+  /**
+   * 格式化
+   */
   formatCode() {
     this.editor?.getAction("editor.action.formatDocument").run();
   }
@@ -70,7 +83,7 @@ export class MonacoEditor {
       } as EditorModelInfo;
     };
 
-    var codeInfo = this.builder.tryReplaceIndependModule(uriName, builder);
+    var codeInfo = this.builder.setIndependModule(uriName, builder);
 
     this.editor.setModel(codeInfo.model);
   }
