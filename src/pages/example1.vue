@@ -47,34 +47,41 @@ onMounted(() => {
 
   editorGlobal = monacoBuilder.build(editorGlobalRef.value);
 
-  editorGlobal?.setGlobalCode("obal.ts", sourceCodeGlobal, true);
+  editorGlobal?.setCode("obal.ts", sourceCodeGlobal, true);
 
 })
 
 const onTabChange = (key: any) => {
   switch (key) {
     case "global":
-      editorGlobal?.setGlobalCode("http://gg.com/1.ts", sourceCodeGlobal, true);
+      editorGlobal?.setCode("http://gg.com/1.ts", sourceCodeGlobal, true);
       break;
     case "1":
 
       if (!editor1) {
         nextTick(() => {
           editor1 = monacoBuilder.build(editr1Ref.value);
-          editor1?.setCode("http://cc.com/2.ts", sourceCode1);
+          editor1?.setIndependCode("http://cc.com/2.ts", sourceCode1);
+          editor1?.hightLine(1, "myContentClass");
         })
       }
-
-
+      else {
+        
+        editor1?.setIndependCode("http://cc.com/2.ts", sourceCode1);
+        editor1?.hightLine(1, "myContentClass");
+      }
       break;
     case "2":
 
       if (!editor2) {
         nextTick(() => {
           editor2 = monacoBuilder.build(editr2Ref.value);
-          editor2?.setCode("file://3.ts", sourceCode2, "javascript");
+          editor2?.setIndependCode("file://3.ts", sourceCode2, "javascript");
         })
 
+      }
+      else{
+        editor2?.setIndependCode("file://3.ts", sourceCode2, "javascript");
       }
 
       break
@@ -86,5 +93,14 @@ const onTabChange = (key: any) => {
   width: 100%;
   height: 90vh;
   box-sizing: border-box;
+}
+
+
+
+
+.myContentClass {
+  color: #c41d7f;
+  background: #870036;
+  border-color: #ffadd2;
 }
 </style>

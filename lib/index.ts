@@ -10,6 +10,8 @@ import { IntellisenceEnv } from "./types";
 
 const instellMap = new Map<string, monaco.IDisposable>();
 
+
+
 export const useIntellisence = (): IntellisenceEnv => {
   const result = {} as IntellisenceEnv;
 

@@ -45,17 +45,16 @@ export class MonacoEditor {
   }
   /**
    *
-   * @param uri
-   * @param code
-   * @param codeRelative
-   * @param lang
+   * @param uri 用于表示代码的唯一key，采用monaco.Uri。当切换代码的时候用此进行对比
+   * @param code 代码
+   * @param lang 语言id 根据woker的进行设置。
    * @param showCode 是否在代码编辑器中显示。
    * @returns
    */
-  setGlobalCode(
+  setCode(
     uri: string,
     code: Ref<string>,
-    showCode: boolean = false,
+    showCode: boolean = true,
     lang: string = "javascript"
   ): monaco.editor.ITextModel {
     const uriName = monaco.Uri.parse(uri);
@@ -66,23 +65,30 @@ export class MonacoEditor {
       model = {
         code,
         model: codeModel,
+        decorations: undefined,
       };
       this.builder.globalModelMap.set(codeModel.uri.toString(), model);
-      this.editor.setModel(codeModel);
+      if (showCode) {
+        this.editor.setModel(codeModel);
+      }
     }
-
+    if (model.decorations) {
+      model.model.deltaDecorations(model.decorations, []);
+    }
     return model.model;
   }
-  setCode(uri: string, code: Ref<string>, lang: string = "javascript"): void {
+  setIndependCode(
+    uri: string,
+    code: Ref<string>,
+    lang: string = "javascript"
+  ): void {
     const uriName = monaco.Uri.parse(uri);
-
     const builder = () => {
       return {
         model: monaco.editor.createModel(code.value, lang, uriName),
         code,
       } as EditorModelInfo;
     };
-
     var codeInfo = this.builder.setIndependModule(uriName, builder);
 
     this.editor.setModel(codeInfo.model);
@@ -90,23 +96,30 @@ export class MonacoEditor {
   /**
    * 高亮代码行数。
    * @param line 代码行数
-   * @returns 
+   * @returns
    */
 
-  hightLine(line: number) {
+  hightLine(line: number, hightStyeClass: string) {
     if (!this.editor) return;
-    let decorations = this.editor.getModel()?.deltaDecorations(
+    const key = this.editor.getModel()?.uri;
+    if (!key) throw new Error("不存在module无法找到");
+    const module = this.builder.getModel(key);
+
+    let decorations = module?.model.deltaDecorations(
       [],
       [
         {
           range: new monaco.Range(line, 1, line, 1),
           options: {
             isWholeLine: true,
-            className: "myContentClass",
-            glyphMarginClassName: "myGlyphMarginClass",
+            className: hightStyeClass,
+            /*glyphMarginClassName: "myGlyphMarginClass",*/
           },
         },
       ]
     );
+    if (decorations && module) module.decorations = decorations;
+
+    console.log(decorations);
   }
 }

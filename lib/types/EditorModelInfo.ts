@@ -4,4 +4,5 @@ import { Ref } from "vue";
 export declare type EditorModelInfo = {
   model: monaco.editor.ITextModel;
   code: Ref<string>;
+  decorations:string[] |undefined
 };

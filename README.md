@@ -1,40 +1,9 @@
-# 安装
+# monaco editor 前期工作
 
-默认已经导入 了 es5/es6 得代码提示。
+需要添加 woker
 
-``npm install coder-vue3-monaco-editor`
-
-```
-import  monacoEditor from 'coder-vue3-monaco-editor'
-export default {
-  compouents:{monacoEditor}
-}
-```
-
-or
-
-```
-import monacoEditor from 'coder-vue3-monaco-editor'
-app.use(monacoEditor)
-```
-
-```
-<template>
-  <coder-monaco-editor v-model="sourceCode"  />
-</template>
-
-<script setup>
-import { ref, reactive } from "vue";
-const sourceCode = ref("var a=1");
-const onMessageTypeEdit = () => {
-  messageTypeId.value = 0;
-};
-</script>
-
-
-```
-
-# mnonaco 基础设置
+参考 https://github.com/microsoft/monaco-editor/blob/main/docs/integrate-esm.md 中的
+Using Vite 这一章节
 
 ```
 import * as monaco from 'monaco-editor';
@@ -57,3 +26,38 @@ window.MonacoEnvironment = {
   },
 };
 ```
+
+# start
+
+默认已经导入 了 es5/es6 得代码提示。
+
+``npm install coder-vue3-monaco-editor-builder`
+
+```html
+<div ref="editr2Ref" class="editor"></div>
+```
+
+```javascript
+const monacoBuilder = useBuilder();
+let editor: MonacoEditor | null = null;
+const editr2Ref = ref();
+/* 支持的提示西信息,内置了es5/es6的基础js库*/
+useIntellisence().setNoLib().setEs5().setEs6();
+
+onMounted(() => {
+  editor = monacoBuilder.build(editr2Ref.value);
+  /**
+   *
+   * @param uri 用于表示代码的唯一key，采用monaco.Uri。当切换代码的时候用此进行对比
+   * @param code 代码
+   * @param showCode 是否在代码编辑器中显示。
+   * @param lang 语言id 根据woker的进行设置。
+   * @returns
+   */
+  editor?.setCode("http://cc.com/2.ts", sourceCode1, true, "javascript");
+  editor?.highlight(1) 
+});
+```
+
+
+
