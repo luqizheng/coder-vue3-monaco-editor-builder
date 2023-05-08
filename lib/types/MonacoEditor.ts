@@ -122,4 +122,12 @@ export class MonacoEditor {
 
     console.log(decorations);
   }
+
+  readonly(readonly: boolean) {
+    this.editor.updateOptions({ readOnly: readonly });
+  }
+
+  changeOption(setting: any) {
+    this.editor.updateOptions(setting);
+  }
 }

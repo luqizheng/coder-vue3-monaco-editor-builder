@@ -10,8 +10,6 @@ import { IntellisenceEnv } from "./types";
 
 const instellMap = new Map<string, monaco.IDisposable>();
 
-
-
 export const useIntellisence = (): IntellisenceEnv => {
   const result = {} as IntellisenceEnv;
 
@@ -44,7 +42,7 @@ export const useIntellisence = (): IntellisenceEnv => {
         );
       instellMap.set(key, model);
     }
-    console.log(instellMap.size)
+    console.log(instellMap.size);
     return result;
   };
 
