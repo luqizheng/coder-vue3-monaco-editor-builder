@@ -1,6 +1,5 @@
 export * from "./types";
-import { App } from "vue";
-
+\
 import { MonacoBuilder } from "./types/MonacoBuilder";
 
 import * as monaco from "monaco-editor";
