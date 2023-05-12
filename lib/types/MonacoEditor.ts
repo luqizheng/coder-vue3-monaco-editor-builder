@@ -119,8 +119,6 @@ export class MonacoEditor {
       ]
     );
     if (decorations && module) module.decorations = decorations;
-
-    console.log(decorations);
   }
 
   readonly(readonly: boolean) {

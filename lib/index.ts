@@ -42,7 +42,7 @@ export const useIntellisence = (): IntellisenceEnv => {
         );
       instellMap.set(key, model);
     }
-    console.log(instellMap.size);
+ 
     return result;
   };
 
