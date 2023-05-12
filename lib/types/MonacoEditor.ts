@@ -1,8 +1,7 @@
-import { mode } from "crypto-js";
 import * as monaco from "monaco-editor";
-import { Ref } from "vue";
-import { MonacoBuilder, SnapShot } from "..";
-import { EditorModelInfo } from "./EditorModelInfo";
+
+import { MonacoBuilder } from "..";
+import { CodeProvider, EditorModelInfo } from "./EditorModelInfo";
 
 export class MonacoEditor {
   editor: monaco.editor.IStandaloneCodeEditor;
@@ -24,7 +23,7 @@ export class MonacoEditor {
       var key = this.editor.getModel()?.uri;
       if (key) {
         const modelInfo = this.builder.getModel(key);
-        if (modelInfo) modelInfo.code.value = codeStr;
+        if (modelInfo) modelInfo.code.set(codeStr);
       }
     });
   }
@@ -53,14 +52,14 @@ export class MonacoEditor {
    */
   setCode(
     uri: string,
-    code: Ref<string>,
+    code: CodeProvider,
     showCode: boolean = true,
     lang: string = "javascript"
   ): monaco.editor.ITextModel {
     const uriName = monaco.Uri.parse(uri);
     let model = this.builder.getGlobalModel(uriName);
     if (!model) {
-      var codeModel = monaco.editor.createModel(code.value, lang, uriName);
+      var codeModel = monaco.editor.createModel(code.get(), lang, uriName);
 
       model = {
         code,
@@ -75,23 +74,26 @@ export class MonacoEditor {
     if (model.decorations) {
       model.model.deltaDecorations(model.decorations, []);
     }
+    model.model.setValue(code.get());   
     return model.model;
   }
   setIndependCode(
     uri: string,
-    code: Ref<string>,
+    code: CodeProvider,
     lang: string = "javascript"
-  ): void {
+  ): monaco.editor.ITextModel {
     const uriName = monaco.Uri.parse(uri);
     const builder = () => {
       return {
-        model: monaco.editor.createModel(code.value, lang, uriName),
+        model: monaco.editor.createModel(code.get(), lang, uriName),
         code,
       } as EditorModelInfo;
     };
     var codeInfo = this.builder.setIndependModule(uriName, builder);
+    codeInfo.model.setValue(code.get());   
 
     this.editor.setModel(codeInfo.model);
+    return codeInfo.model;
   }
   /**
    * 高亮代码行数。

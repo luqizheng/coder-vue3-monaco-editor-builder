@@ -24,7 +24,7 @@
 /** 只是page引用的 */
 import * as monaco from 'monaco-editor'
 import { Checkbox as aCheckbox, Tabs as ATabs, TabPane as ATabPane } from "ant-design-vue";
-import { ref, reactive, onMounted, nextTick } from "vue";
+import { ref, reactive, onMounted, nextTick, watch } from "vue";
 const sourceCodeGlobal = ref("var a=1;function SayHello(){console.log('hello')}");
 const sourceCode1 = ref("var b=3");
 const sourceCode2 = ref("var d=4;");
@@ -40,34 +40,79 @@ import { MonacoEditor } from '../../lib/types'
 let editorGlobal: MonacoEditor | null = null
 let editor1: MonacoEditor | null = null
 let editor2: MonacoEditor | null = null
+
+const sourceCodeGlobalProvider = {
+  get: () => sourceCodeGlobal.value,
+  set: (v) => sourceCodeGlobal.value = v
+}
+
+const sourceCode1Provider = {
+  get: () => sourceCode1.value,
+  set: (v) => sourceCode1.value = v
+}
+
+
+const sourceCode2Provider = {
+  get: () => sourceCode2.value,
+  set: (v) => sourceCode2.value = v
+}
+
+
 onMounted(() => {
   useIntellisence()
     .setNoLib()
     .setEs5().setEs6();
 
   editorGlobal = monacoBuilder.build(editorGlobalRef.value);
+  SetGlobal();
 
-  editorGlobal?.setCode("obal.ts", sourceCodeGlobal, true);
+})
 
+const uriSetting = {
+  global: 'global',
+  source1: 'source1',
+  source2: 'source2'
+}
+
+function SetGlobal() {
+  editorGlobal?.setCode(uriSetting.global, sourceCodeGlobalProvider, true);
+}
+function SetSource1() {
+  editor1?.setIndependCode(uriSetting.source1, sourceCode1Provider, "javascript");
+}
+
+function SetSource2() {
+  editor2?.setIndependCode(uriSetting.source2, sourceCode2Provider, 'javascript');
+}
+
+watch(() => sourceCode1.value, () => {
+  SetSource1();
+})
+
+watch(() => sourceCode2.value, () => {
+  SetSource2()
+})
+watch(() => sourceCodeGlobal.value, () => {
+  SetGlobal();
 })
 
 const onTabChange = (key: any) => {
   switch (key) {
     case "global":
-      editorGlobal?.setCode("http://gg.com/1.ts", sourceCodeGlobal, true);
+      SetGlobal();
       break;
     case "1":
-
+      debugger
       if (!editor1) {
         nextTick(() => {
           editor1 = monacoBuilder.build(editr1Ref.value);
-          editor1?.setIndependCode("http://cc.com/2.ts", sourceCode1);
+          SetSource1();
           editor1?.hightLine(1, "myContentClass");
         })
       }
       else {
-        
-        editor1?.setIndependCode("http://cc.com/2.ts", sourceCode1);
+
+        SetSource1();
         editor1?.hightLine(1, "myContentClass");
       }
       break;
@@ -76,12 +121,12 @@ const onTabChange = (key: any) => {
       if (!editor2) {
         nextTick(() => {
           editor2 = monacoBuilder.build(editr2Ref.value);
-          editor2?.setIndependCode("file://3.ts", sourceCode2, "javascript");
+          SetSource2();
         })
 
       }
-      else{
-        editor2?.setIndependCode("file://3.ts", sourceCode2, "javascript");
+      else {
+        SetSource2();
       }
 
       break

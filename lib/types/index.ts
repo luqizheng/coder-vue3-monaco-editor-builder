@@ -1,12 +1,13 @@
 import * as monaco from "monaco-editor";
-import { Ref } from "vue";
+
+import { CodeProvider } from "./EditorModelInfo";
 export * from "./MonacoBuilder";
 export * from "./MonacoEditor";
 export * from "./EditorModelInfo";
 export type SnapShot = {
   snapShot: monaco.editor.ITextSnapshot;
   lang: "";
-  code: Ref<string>;
+  code: CodeProvider;
   uri: monaco.Uri;
 };
 export type IntellisenceEnv = {

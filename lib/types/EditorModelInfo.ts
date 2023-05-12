@@ -1,8 +1,15 @@
 import * as monaco from "monaco-editor";
-import { Ref } from "vue";
+
 
 export declare type EditorModelInfo = {
   model: monaco.editor.ITextModel;
-  code: Ref<string>;
-  decorations:string[] |undefined
+  code: CodeProvider
+  decorations: string[] | undefined;
+};
+/**
+ * 代码提供
+ */
+export type CodeProvider = {
+  get: { (): string };
+  set: { (v: string): void };
 };
