@@ -102,7 +102,7 @@ const onTabChange = (key: any) => {
       SetGlobal();
       break;
     case "1":
-      debugger
+      
       if (!editor1) {
         nextTick(() => {
           editor1 = monacoBuilder.build(editr1Ref.value);

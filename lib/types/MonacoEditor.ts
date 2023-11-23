@@ -40,7 +40,8 @@ export class MonacoEditor {
    * 格式化
    */
   formatCode() {
-    this.editor?.getAction("editor.action.formatDocument").run();
+  
+      this.editor?.getAction("editor.action.formatDocument")?.run();
   }
   /**
    *
@@ -74,7 +75,7 @@ export class MonacoEditor {
     if (model.decorations) {
       model.model.deltaDecorations(model.decorations, []);
     }
-    model.model.setValue(code.get());   
+    model.model.setValue(code.get());
     return model.model;
   }
   setIndependCode(
@@ -90,7 +91,7 @@ export class MonacoEditor {
       } as EditorModelInfo;
     };
     var codeInfo = this.builder.setIndependModule(uriName, builder);
-    codeInfo.model.setValue(code.get());   
+    codeInfo.model.setValue(code.get());
 
     this.editor.setModel(codeInfo.model);
     return codeInfo.model;
