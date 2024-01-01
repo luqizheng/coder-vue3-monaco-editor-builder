@@ -4,6 +4,10 @@ import { MonacoBuilder } from "..";
 import { CodeProvider, EditorModelInfo } from "./EditorModelInfo";
 
 export class MonacoEditor {
+  models: Map<monaco.Uri, EditorModelInfo> = new Map<
+    monaco.Uri,
+    EditorModelInfo
+  >();
   editor: monaco.editor.IStandaloneCodeEditor;
   builder: MonacoBuilder;
   htmlElement: HTMLElement;
@@ -29,7 +33,7 @@ export class MonacoEditor {
   }
 
   /**
-   * 暂停builder 所有的 model，避免在builder之间共享 module的提示。
+   * 暂停builder 所有的 model，避免在builder之间共享 module的 代码提示。
    *
    */
   setModleEnable(enable: boolean) {
@@ -40,8 +44,7 @@ export class MonacoEditor {
    * 格式化
    */
   formatCode() {
-  
-      this.editor?.getAction("editor.action.formatDocument")?.run();
+    this.editor?.getAction("editor.action.formatDocument")?.run();
   }
   /**
    *
@@ -58,6 +61,7 @@ export class MonacoEditor {
     lang: string = "javascript"
   ): monaco.editor.ITextModel {
     const uriName = monaco.Uri.parse(uri);
+
     let model = this.builder.getGlobalModel(uriName);
     if (!model) {
       var codeModel = monaco.editor.createModel(code.get(), lang, uriName);
@@ -84,16 +88,20 @@ export class MonacoEditor {
     lang: string = "javascript"
   ): monaco.editor.ITextModel {
     const uriName = monaco.Uri.parse(uri);
-    const builder = () => {
-      return {
-        model: monaco.editor.createModel(code.get(), lang, uriName),
-        code,
-      } as EditorModelInfo;
-    };
-    var codeInfo = this.builder.setIndependModule(uriName, builder);
-    codeInfo.model.setValue(code.get());
+    let codeInfo = this.models.get(uriName);
+    if (!codeInfo) {
+      const builder = () => {
+        return {
+          model: monaco.editor.createModel(code.get(), lang, uriName),
+          code,
+        } as EditorModelInfo;
+      };
+      codeInfo = this.builder.setIndependModule(uriName, builder);
+      codeInfo.model.setValue(code.get());
+    }
 
     this.editor.setModel(codeInfo.model);
+
     return codeInfo.model;
   }
   /**
@@ -130,5 +138,12 @@ export class MonacoEditor {
 
   changeOption(setting: any) {
     this.editor.updateOptions(setting);
+  }
+
+  /**退出编辑器。 */
+  dispose() {
+    this.editor.dispose();
+    this.models.forEach((item) => item.model.dispose());
+    this.models.clear();
   }
 }
