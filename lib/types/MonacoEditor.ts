@@ -4,6 +4,7 @@ import { MonacoBuilder } from "..";
 import { CodeProvider, EditorModelInfo } from "./EditorModelInfo";
 
 export class MonacoEditor {
+  lastModel: EditorModelInfo | undefined;
   models: Map<monaco.Uri, EditorModelInfo> = new Map<
     monaco.Uri,
     EditorModelInfo
@@ -80,6 +81,7 @@ export class MonacoEditor {
       model.model.deltaDecorations(model.decorations, []);
     }
     model.model.setValue(code.get());
+    this.lastModel = model;
     return model.model;
   }
   setIndependCode(
@@ -101,8 +103,18 @@ export class MonacoEditor {
     }
 
     this.editor.setModel(codeInfo.model);
-
+    this.lastModel = codeInfo;
     return codeInfo.model;
+  }
+
+  /**
+   * 
+   * @param code 代码
+   * @returns 
+   */
+  updateCode(code: string) {
+    if (!this.lastModel) return;
+    this.lastModel.model.setValue(code);
   }
   /**
    * 高亮代码行数。
